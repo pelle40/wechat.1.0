@@ -29,6 +29,6 @@ func (c *WechatController)Entry(){
 	}
 }
 
-func (c *WechatController)Test(){
+func (c *WechatController)Tttt(){
 	c.Ctx.WriteString(beego.AppConfig.String("runmode"))
 }
