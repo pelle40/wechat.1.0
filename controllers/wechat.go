@@ -30,5 +30,5 @@ func (c *WechatController)Entry(){
 }
 
 func (c *WechatController)Tttt(){
-	c.Ctx.WriteString(beego.AppConfig.String("runmode"))
+	c.Ctx.WriteString("Runmode:"+beego.AppConfig.String("runmode"))
 }
