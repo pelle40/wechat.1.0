@@ -6,14 +6,20 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"strings"
+	"fmt"
 )
 
 type WechatController struct{
 	beego.Controller
 }
 
-func (c *WechatController)Entry(){
-	token := "top_learn_token"
+func (c *WechatController)Entry() {
+	account := c.GetString("account")
+	token := beego.AppConfig.String(account+"::token")
+	if token==""{
+		fmt.Println("No Account Token")
+		c.Ctx.WriteString("Bad Gate Way")
+	}
 	signature := c.GetString("signature")
 	timestamp := c.GetString("timestamp")
 	nonce := c.GetString("nonce")
@@ -23,12 +29,8 @@ func (c *WechatController)Entry(){
 	sort.Strings(keys)
 	sign := strings.Join(keys,"")
 	if hex.EncodeToString(sha1.New().Sum([]byte(sign))) != signature{
-		c.Ctx.WriteString("bad gate way")
+		c.Ctx.WriteString("Bad Gate Way")
 	} else {
 		c.Ctx.WriteString(echostr)
 	}
-}
-
-func (c *WechatController)Tttt(){
-	c.Ctx.WriteString("Runmode:"+beego.AppConfig.String("runmode"))
 }
