@@ -6,7 +6,6 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"strings"
-	"fmt"
 )
 
 type WechatController struct{
@@ -17,8 +16,8 @@ func (c *WechatController)Entry() {
 	account := c.GetString("account")
 	token := beego.AppConfig.String(account+"::token")
 	if token==""{
-		fmt.Println("No Account Token")
 		c.Ctx.WriteString("Bad Gate Way")
+		c.StopRun()
 	}
 	signature := c.GetString("signature")
 	timestamp := c.GetString("timestamp")
