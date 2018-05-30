@@ -6,6 +6,7 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"strings"
+	"fmt"
 )
 
 type WechatController struct{
@@ -23,6 +24,10 @@ func (c *WechatController)Entry() {
 	timestamp := c.GetString("timestamp")
 	nonce := c.GetString("nonce")
 	echostr := c.GetString("echostr")
+	fmt.Println("1:"+signature)
+	fmt.Println("2:"+timestamp)
+	fmt.Println("3:"+nonce)
+	fmt.Println("4:"+echostr)
 
 	keys := []string{token,timestamp,nonce}
 	sort.Strings(keys)
